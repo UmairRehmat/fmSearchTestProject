@@ -8,8 +8,9 @@ import 'package:http/http.dart' as http;
 class SearchProvider extends ChangeNotifier {
   List<Album?> albums = [];
   String albumsKeyword = "";
-  Future<List<Album?>> getResults(String? search) async {
-    if (albums.length == 0 && search != albumsKeyword) {
+  Future<List<Album?>> getResults(String search) async {
+    if (albums.length == 0 || search != albumsKeyword) {
+      albumsKeyword = search;
       try {
         AlbumResponse albumResponse = await getAlbumList(search!);
         print("length of response");

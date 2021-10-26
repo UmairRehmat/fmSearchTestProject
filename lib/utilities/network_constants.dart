@@ -6,3 +6,5 @@ const BASE_URL =
 
 //APIs endpoints
 const albumSearchApi = "album.search&album=";
+String defaultImage =
+    "https://staffordonline.org/wp-content/uploads/2019/01/Google.jpg";

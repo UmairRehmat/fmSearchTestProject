@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fmsearcfeature/models/album_response.dart';
 import 'package:fmsearcfeature/providers/search_result_provider.dart';
+import 'package:fmsearcfeature/screens/album_details.dart';
+import 'package:fmsearcfeature/utilities/network_constants.dart';
 import 'package:provider/provider.dart';
 
 class SearchPageScreen extends StatefulWidget {
@@ -13,8 +15,6 @@ class SearchPageScreen extends StatefulWidget {
 
 class _SearchPageScreenState extends State<SearchPageScreen> {
   TextEditingController inputController = TextEditingController();
-  String defaultImage =
-      "https://staffordonline.org/wp-content/uploads/2019/01/Google.jpg";
   bool onSearchClicked = false;
   String currentSearch = "";
   @override
@@ -92,7 +92,6 @@ class _SearchPageScreenState extends State<SearchPageScreen> {
                             ),
                             itemBuilder: (context, index) {
                               var item = snapshot.data![index];
-                              // int itemPrice = double.parse(item.price).round();
                               int length = item?.image?.length ?? 0;
                               int largeImage = length > 0 ? length - 1 : length;
                               String image =
@@ -105,14 +104,11 @@ class _SearchPageScreenState extends State<SearchPageScreen> {
                               return InkWell(
                                 onTap: () {
                                   print("Item Clicked");
-                                  // Navigator.push(
-                                  //   context,
-                                  //   TransitionEffect(
-                                  //       widget: SubCategoryScreen(
-                                  //           item.childrenData!, item.name!),
-                                  //       alignment: Alignment.bottomCenter,
-                                  //       durationAnimation: 300),
-                                  // );
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AlbumDetailsScreen(item!)));
                                 },
                                 child: Container(
                                   padding: EdgeInsets.only(top: 15, bottom: 10),
@@ -129,14 +125,6 @@ class _SearchPageScreenState extends State<SearchPageScreen> {
                                               1), // changes position of shadow
                                         ),
                                       ],
-                                      // gradient: LinearGradient(
-                                      //   begin: Alignment.topCenter,
-                                      //   end: Alignment.bottomCenter,
-                                      //   colors: [
-                                      //     Color(0xFF2D51DB),
-                                      //     Color(0xFF1A3083),
-                                      //   ],
-                                      // ),
                                       borderRadius: new BorderRadius.all(
                                           Radius.circular(20.0))),
                                   child: Center(
@@ -144,12 +132,10 @@ class _SearchPageScreenState extends State<SearchPageScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Expanded(
-                                          child: Hero(
-                                              tag: "MainImage$index",
-                                              child: Image.network(
-                                                image,
-                                                fit: BoxFit.cover,
-                                              ))),
+                                          child: Image.network(
+                                        image,
+                                        fit: BoxFit.cover,
+                                      )),
                                       SizedBox(
                                         height: 10,
                                       ),
