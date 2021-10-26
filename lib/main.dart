@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fmsearcfeature/screens/search_home_page.dart';
+import 'package:fmsearcfeature/providers/search_result_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => SearchProvider())],
+        child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SearchPageScreen(),
     );
   }
 }
